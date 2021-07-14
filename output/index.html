@@ -4,72 +4,113 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
-    <title>Organization</title>
+    <title>Team Organization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    #container{
+    display:flex;
+    flex-wrap: wrap;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+  margin: 5px;
+  text-align: left;
+}
+
+header{
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding-top: 0;
+}
+
+.cardhead{
+    background-color: gold;
+    color: black;
+    text-align: center;
+    margin: 0;
+}
+.cardhead h3{
+margin-top:0;
+margin-bottom: 0;
+}
+
+ul {
+    margin-top: 0.5rem;
+    padding: .8rem;
+    list-style-type: none;
+  }
+
+a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: black;
+}
+.schoolrev {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .schoolrev .schooltext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the schoolrev */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .schoolrev:hover .schooltext {
+    visibility: visible;
+  }
+</style>
 </head>
 <body>
-<header class="yellow black-text">
-<h3 class='center'>Organization</h3>
-</header>
-<div class="row container">
-    <div class="col s3 m6">
-      <div class="card grey s3 darken-1">
-        <div class="card-content white-text">
-          <span class="card-title center">Helen Troy</span>
-          <ul>
-            <li>  Manager</li>
-            <li> ID: 123 </li>
-            <div class="nav-wrapper">
-            <li><a href="mailto:gmcmurray1493@gmail.com">Email</a></li>
-            <li> Office #12 </li>
-            </div>
-          </ul>
+    <header>
+        <h2>Team Organization</h2>
+    </header>
+    <div id="container">
+    <div class="card">
+        <div class="cardhead">
+            <h3>Joan Arc</h3>
         </div>
+        <ul>
+            <li>Manager  <i class="fas fa-coffee"></i></li>
+            <li>ID#: 123</li>
+            <li><a href="mailto:gmcmurray1493@gmail.com" class ="schoolrev">Email<span class="schooltext">gmcmurray1493@gmail.com</a></li>
+            <li>Office # : 12</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="cardhead">
+            <h3>John Doe</h3>
+        </div>
+        <ul>
+            <li>Engineer <i class="fas fa-hard-hat"></i></li>
+            <li>ID#: 123</li>
+            <li><a href="mailto:gmcmurray1493@gmail.com" class ="schoolrev">Email<span class="schooltext">gmcmurray1493@gmail.com</a></li>
+            <li class="schoolrev">GitHub Name<span class="schooltext">jdoexx</span> </li>
+        </ul >
+      </div>
+      <div class="card">
+        <div  class="cardhead">
+            <h3>Rebecca Hardley</h3>
+        </div>
+        <ul>
+            <li>Intern  <i class="fas fa-atom"></i></li>
+            <li>ID#: 123</li>
+            <li><a href="mailto:gmcmurray1493@gmail.com">Email</a></li>
+            <li class="schoolrev">School<span class="schooltext">StateUniversity</span></li>
+        </ul>
       </div>
     </div>
-    <div class="col s3 m6">
-        <div class="card blue-grey s3 darken-1">
-          <div class="card-content white-text">
-            <span class="card-title center">Alan Watts</span>
-            <ul>
-              <li>Engineer</li>
-              <li> ID: 21  </li>
-              <li><a href="mailto:gmcmurray1493@gmail.com">Email</a> </li>
-              <li> Github: awatts23 </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col s3 m6">
-        <div class="card blue-grey s3 darken-1">
-          <div class="card-content white-text">
-            <span class="card-title center">James Bond</span>
-            <ul>
-              <li>Intern</li>
-              <li> ID: 007  </li>
-              <li><a href="mailto:gmcmurray1493@gmail.com">Email</a></li>
-              <li> School: Glasgow </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-</div>
-
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-<script type="text/javascript" src="./assets/js/script.js"></script> 
-<script>
-var winwidth = window.innerWidth
-function myFunction() {
-    if(winwidth<620){
-    var x = document.getElementsByClassName("bottomstuff");
-    if (x.className === "bottomstuff") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }}
-  }</script>
+    <script src="https://kit.fontawesome.com/f40a880f6f.js" crossorigin="anonymous"></script>
 </body>
 </html>

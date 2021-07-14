@@ -1,5 +1,8 @@
 
 const inquirer = require("inquirer");
+const Engineer = require("../lib/Engineer");
+const Manager = require("../lib/Manager");
+const Intern = require("../lib/Intern");
 
 const managerquestions = [
     {
@@ -15,12 +18,12 @@ const managerquestions = [
     {
         type: "input",
         message: "What is manager's email address ? ",
-        name: "managerEmail"
+        name: "ManagerEmail"
     },
     {
         type: "input",
         message: "What is managers office number ? ",
-        name: "managersOfficeNumber"
+        name: "ManagersOfficeNumber"
     }];
     
 const menuquestion =[
@@ -32,6 +35,12 @@ const menuquestion =[
     }
 
 ];
+
+const Engineerquestions =[{
+    type: "input",
+    message: "What is your GitHub Username? ",
+    name: "GitUserName"
+}]
 
 const Internquestions = [{
     type: "input",
@@ -62,29 +71,30 @@ const NewEmployeequestions = [
 // TODO: Create a function to initialize app
 
 function askmanager(){
+    let buildteam=[];
     inquirer.prompt(managerquestions)
     .then((response)=>{
-        console.log(response)
-        askmenu();
+        buildteam.push(new Manager(response.ManagerName,response.ManagerID,response.ManagerEmail,response.ManagersOfficeNumber))
+        console.log(buildteam)
+        askmenu(buildteam);
     })
     
 }
 
-function askmenu(){
-    let buildteam = true
+function askmenu(team){
     inquirer.prompt(menuquestion)
         .then((response) =>{
             const Action1 = response.Action1;
             console.log("menu response", response,Action1)
             switch (Action1) {
                 case 'Finish Building Team':
-                    buildteam = false;
                     break;
                 case 'Add Engineer':
-                    quest=NewEmployeequestions
+                    quest=NewEmployeequestions.concat(Engineerquestions)
                     inquirer.prompt(quest).
                     then((rep) => {
-                        console.log(rep)
+                        team.push( new Engineer(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.GitUserName))
+                        console.log(team)
                         if(rep !="Finish Building Team") {askmenu();}
                     })
                     break;
@@ -92,7 +102,7 @@ function askmenu(){
                     quest= NewEmployeequestions.concat(Internquestions)
                     inquirer.prompt(quest).
                     then((rep) => {
-                        console.log(rep)
+                        team.push( new Intern(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.School))
                         if(rep !="Finish Building Team") {askmenu();}
                     })
                     break;
@@ -101,7 +111,8 @@ function askmenu(){
                     break;
             }
         })
-
+        console.log(team)
+        return(team)
         }
 
     
