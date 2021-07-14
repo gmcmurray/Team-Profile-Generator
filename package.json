@@ -1,16 +1,28 @@
 {
-  "name": "Team-Profile-Generator",
+  "name": "team-profile-generator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "inquirer": "^8.1.1",
+    "jest": "^27.0.6"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmcmurray/Team-Profile-Generator.git"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "jest": "^24.9.0"
+  "bugs": {
+    "url": "https://github.com/gmcmurray/Team-Profile-Generator/issues"
   },
-  "dependencies": {
-    "inquirer": "^6.5.0"}
+  "homepage": "https://github.com/gmcmurray/Team-Profile-Generator#readme"
 }

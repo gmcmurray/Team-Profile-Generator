@@ -56,31 +56,56 @@ const NewEmployeequestions = [
         name: "EmployeeEmail"
     },
 ];
-// TODO: Create a function to initialize app
-function askquestions() {
-    inquirer.prompt(managerquestions)
-    .then((resp) => {
-        console.log("manager resp", resp)
-        inquirer.prompt(menuquestion)
-        .then((response) =>{
-            console.log("menu repsonse", response)
-            const Action1 = response.Action1;
-            if(Action1 === 'Add Engineer')
-            { quest=NewEmployeequestions}
-            else if(Action === 'Add Intern'){
-                quest= NewEmployeequestions.concat(Intern)
-            }
-            else {
-                return console.log("done")}
-            inquirer.prompt(quest)
-            .then((res)=>{
-                console.log(res);
-            })
-            // return generateHTMl(response.teamManagerName)}
-            // writeToFile("./index.html", )
-        });
-    });
-    }
 
-    module.exports = askquestions;
+
+
+// TODO: Create a function to initialize app
+
+function askmanager(){
+    inquirer.prompt(managerquestions)
+    .then((response)=>{
+        console.log(response)
+        askmenu();
+    })
+    
+}
+
+function askmenu(){
+    let buildteam = true
+    inquirer.prompt(menuquestion)
+        .then((response) =>{
+            const Action1 = response.Action1;
+            console.log("menu response", response,Action1)
+            switch (Action1) {
+                case 'Finish Building Team':
+                    buildteam = false;
+                    break;
+                case 'Add Engineer':
+                    quest=NewEmployeequestions
+                    inquirer.prompt(quest).
+                    then((rep) => {
+                        console.log(rep)
+                        if(rep !="Finish Building Team") {askmenu();}
+                    })
+                    break;
+                case 'Add Intern':
+                    quest= NewEmployeequestions.concat(Internquestions)
+                    inquirer.prompt(quest).
+                    then((rep) => {
+                        console.log(rep)
+                        if(rep !="Finish Building Team") {askmenu();}
+                    })
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+
+        }
+
+    
+    
+    module.exports = askmenu;
+    module.exports = askmanager;
     

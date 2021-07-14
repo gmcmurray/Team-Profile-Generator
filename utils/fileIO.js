@@ -16,5 +16,4 @@ FileIO.prototype.append = function(file, data) {
 
 module.exports = FileIO;
 
-module.exports = FileIO;
 
