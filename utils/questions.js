@@ -3,7 +3,9 @@ const inquirer = require("inquirer");
 const Engineer = require("../lib/Engineer");
 const Manager = require("../lib/Manager");
 const Intern = require("../lib/Intern");
-
+const FileIO = require("./fileIO");
+const makehtml = require("./makehtml");
+const fileIO = new FileIO();
 const managerquestions = [
     {
         type: "input",
@@ -28,7 +30,7 @@ const managerquestions = [
     
 const menuquestion =[
     {
-        type: "rawlist",
+        type: "list",
         message: "What would you like to do next ? ",
         choices: ["Add Engineer", "Add Intern", "Finish Building Team"],
         name: "Action1"
@@ -74,28 +76,27 @@ function askmanager(){
     let buildteam=[];
     inquirer.prompt(managerquestions)
     .then((response)=>{
-        buildteam.push(new Manager(response.ManagerName,response.ManagerID,response.ManagerEmail,response.ManagersOfficeNumber))
-        console.log(buildteam)
+        buildteam.push(new Manager(response.ManagerName,response.ManagerID,response.ManagerEmail,response.ManagersOfficeNumber));
         askmenu(buildteam);
     })
     
+    return(buildteam)
 }
 
 function askmenu(team){
     inquirer.prompt(menuquestion)
         .then((response) =>{
-            const Action1 = response.Action1;
-            console.log("menu response", response,Action1)
-            switch (Action1) {
+            switch (response.Action1) {
                 case 'Finish Building Team':
+                    fileIO.write("./output/employee.txt","We are done")
+                    makehtml(team)
                     break;
                 case 'Add Engineer':
                     quest=NewEmployeequestions.concat(Engineerquestions)
                     inquirer.prompt(quest).
                     then((rep) => {
                         team.push( new Engineer(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.GitUserName))
-                        console.log(team)
-                        if(rep !="Finish Building Team") {askmenu();}
+                        askmenu(team);
                     })
                     break;
                 case 'Add Intern':
@@ -103,15 +104,16 @@ function askmenu(team){
                     inquirer.prompt(quest).
                     then((rep) => {
                         team.push( new Intern(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.School))
-                        if(rep !="Finish Building Team") {askmenu();}
+                        askmenu(team);
                     })
                     break;
-            
                 default:
                     break;
             }
+        
         })
-        console.log(team)
+        
+        // team[0].getRole(),team[1].getRole(),team[2].getRole(),team[2].getSchool())
         return(team)
         }
 

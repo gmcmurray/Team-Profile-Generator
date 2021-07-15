@@ -20,10 +20,12 @@ describe('Intern Class Constructors', () => {
         const testVal = "Intern";
         // Act
         const intern = new Intern("Bud",21,"Bud@company.com", "StateUniversity")
+        console.log(intern)
         // Assert
         expect(intern.getRole()).toBe(testVal)
         expect(intern.role).toBe(testVal)
         });
     });
+    
 
     });

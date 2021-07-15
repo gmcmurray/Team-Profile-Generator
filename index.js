@@ -7,7 +7,3 @@ const fileIO = new FileIO();
 
 // Function call to initialize app
 askmanager();
-// askmenu();
-// askquestions();
-// makehtml();
-fileIO.write("message.txt", "Hello mudder lover!");
