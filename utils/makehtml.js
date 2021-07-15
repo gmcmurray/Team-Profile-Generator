@@ -3,10 +3,11 @@ const FileIO = require("./fileIO");
 const fileIO = new FileIO;
 
 function makehtml(array){
-    let cards ="";
-   let firsthalf ="";
-   let secondhalf ="";
-    // let firsthalf = fileIO.read("firsthalf.txt");
+   if(array.length ==0){return(console.log("No Team Members"))}
+   console.log("in makehtml", array)
+   let cards ="";
+   const secondhalf = fileIO.read(`${__dirname}/secondhalf.txt`)
+   const firsthalf = fileIO.read(`${__dirname}/firsthalf.txt`);
     // let secondhalf = fileIO.read("secondhalf.txt")
     array.forEach(element => {
         console.log("one at a time",element.getRole())
@@ -24,7 +25,12 @@ function makehtml(array){
                 break;
         }
     });
-return(firsthalf+cards+secondhalf)
+
+console.log( "full html", firsthalf+cards+secondhalf )
+let htmlout = firsthalf + cards + secondhalf;
+// fileIO.write( "./output/index.txt",htmlout) 
+fileIO.write("./output/index.html",htmlout.slice(1,-1))
+return 
 }
 
 function engineercard(element){
@@ -72,4 +78,11 @@ function managercard(element){
     </ul>
   </div>`)
 }
+
+function helper(){
+    let htmlout = fileIO.read(`${__dirname}/firsthalf.txt`) + fileIO.read(`${__dirname}/employee.txt`)+fileIO.read(`${__dirname}/secondhalf.txt`)
+    return(fileIO.write("./output/index1.html",htmlout.slice(1,-1)));
+
+}
 module.exports = makehtml;
+// module.exports = helper;

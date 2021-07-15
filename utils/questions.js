@@ -88,8 +88,9 @@ function askmenu(team){
         .then((response) =>{
             switch (response.Action1) {
                 case 'Finish Building Team':
-                    let output=makehtml(team);
-                    fileIO.write("./output/employee.txt",output)
+                    console.log("Finish Building Team")
+                    makehtml(team);
+                    // fileIO.write("./output/employee.txt",output)
                     break;
                 case 'Add Engineer':
                     quest=NewEmployeequestions.concat(Engineerquestions)
