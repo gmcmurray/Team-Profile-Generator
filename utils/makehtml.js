@@ -1,11 +1,13 @@
 
-const FileIO = require("./utils/fileIO");
+const FileIO = require("./fileIO");
 const fileIO = new FileIO;
 
 function makehtml(array){
     let cards ="";
-    let firsthalf = fileIO.read("./firsthalf.txt");
-    let secondhalf = fileIO.read("./secondhalf.txt")
+   let firsthalf ="";
+   let secondhalf ="";
+    // let firsthalf = fileIO.read("firsthalf.txt");
+    // let secondhalf = fileIO.read("secondhalf.txt")
     array.forEach(element => {
         console.log("one at a time",element.getRole())
         switch (element.getRole()) {
@@ -56,17 +58,17 @@ function interncard(element){
   </div>`)
 }
 
-function managercard(){
+function managercard(element){
     return(`
     <div class="card">
     <div class="cardhead">
-        <h3>${managername}</h3>
+        <h3>${element.name}</h3>
     </div>
     <ul>
         <li>Manager  <i class="fas fa-coffee"></i></li>
-        <li>ID#: ${managerid}</li>
-        <li><a href="mailto:${manageremail}" class ="schoolrev">Email<span class="schooltext">${manageremail}</span></a></li>
-        <li>Office # :${manageroffice}</li>
+        <li>ID#: ${element.id}</li>
+        <li><a href="mailto:${element.email}" class ="schoolrev">Email<span class="schooltext">${element.email}</span></a></li>
+        <li>Office # :${element.officenumber}</li>
     </ul>
   </div>`)
 }
