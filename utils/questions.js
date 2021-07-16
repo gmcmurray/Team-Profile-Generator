@@ -77,6 +77,7 @@ function askmanager(){
     inquirer.prompt(managerquestions)
     .then((response)=>{
         buildteam.push(new Manager(response.ManagerName,response.ManagerID,response.ManagerEmail,response.ManagersOfficeNumber));
+        console.log(buildteam)
         askmenu(buildteam);
     })
     

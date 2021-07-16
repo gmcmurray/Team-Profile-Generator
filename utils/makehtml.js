@@ -3,34 +3,33 @@ const FileIO = require("./fileIO");
 const fileIO = new FileIO;
 
 function makehtml(array){
-   if(array.length ==0){return(console.log("No Team Members"))}
-   console.log("in makehtml", array)
-   let cards ="";
+   if(array.length ==0){
+    console.log("No Team Members")
+    return "No Team Members"}
+   let teamcards ="";
+//    html file is composed of firsthalf + teamcards + secondhalf
    const secondhalf = fileIO.read(`${__dirname}/secondhalf.txt`)
    const firsthalf = fileIO.read(`${__dirname}/firsthalf.txt`);
-    // let secondhalf = fileIO.read("secondhalf.txt")
     array.forEach(element => {
         console.log("one at a time",element.getRole())
         switch (element.getRole()) {
             case 'Manager':
-                cards+=managercard(element)
+                teamcards+=managercard(element)
                 break;
             case 'Engineer':
-                cards+=engineercard(element)
+                teamcards+=engineercard(element)
                 break;
             case 'Intern':
-                cards+=interncard(element)
+                teamcards+=interncard(element)
                 break;
             default:
                 break;
         }
     });
 
-console.log( "full html", firsthalf+cards+secondhalf )
-let htmlout = firsthalf + cards + secondhalf;
-// fileIO.write( "./output/index.txt",htmlout) 
+let htmlout = firsthalf + teamcards + secondhalf;
 fileIO.write("./output/index.html",htmlout.slice(1,-1))
-return 
+return htmlout
 }
 
 function engineercard(element){
@@ -38,12 +37,13 @@ function engineercard(element){
    <div class="card">
     <div class="cardhead">
         <h3>${element.name}</h3>
+        <h4>Engineer <i class="fas fa-hard-hat"></i></h4>
     </div>
     <ul>
-        <li>Engineer <i class="fas fa-hard-hat"></i></li>
+
         <li>ID#: ${element.id}</li>
         <li><a href="mailto:${element.email}" class ="schoolrev">Email<span class="schooltext">${element.email}</span></a></li>
-        <li class="schoolrev">GitHub Name<span class="schooltext">${element.github}</span> </li>
+        <li class="schoolrev"><a href="https://github.com/${element.github}">GitHub Name<span class="schooltext">${element.github}</span></a> </li>
     </ul >
   </div>`)
 
@@ -54,9 +54,9 @@ function interncard(element){
    <div class="card">
     <div  class="cardhead">
         <h3>${element.name}</h3>
+        <h4>Intern  <i class="fas fa-atom"></i></h4>
     </div>
     <ul>
-        <li>Intern  <i class="fas fa-atom"></i></li>
         <li>ID#: ${element.id}</li>
         <li><a href="mailto:${element.email}" class="schoolrev">Email<span class="schooltext">${element.email}</span></a></li>
         <li class="schoolrev">School<span class="schooltext">${element.school}</span></li>
@@ -69,9 +69,9 @@ function managercard(element){
     <div class="card">
     <div class="cardhead">
         <h3>${element.name}</h3>
+        <h4>Manager  <i class="fas fa-coffee"></i></h4>
     </div>
     <ul>
-        <li>Manager  <i class="fas fa-coffee"></i></li>
         <li>ID#: ${element.id}</li>
         <li><a href="mailto:${element.email}" class ="schoolrev">Email<span class="schooltext">${element.email}</span></a></li>
         <li>Office # :${element.officenumber}</li>
