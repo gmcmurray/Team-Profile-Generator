@@ -1,11 +1,7 @@
-const askquestions = require("./utils/questions");
-const askmenu = require("./utils/questions");
-const FileIO = require("./utils/fileIO");
-const makehtml = require("./utils/makehtml");
+
 const askmanager = require("./utils/questions");
-const helper = require("./utils/makehtml");
-const fileIO = new FileIO();
+
 
 // Function call to initialize app
 askmanager();
-// helper();
+

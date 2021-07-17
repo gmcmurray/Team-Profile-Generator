@@ -15,34 +15,49 @@ const managerquestions = [
     {
         type: "input",
         message: "What is manager's employeeID? ",
-        name: "ManagerID"
+        name: "ManagerID",
+        validate: function (ManagerID) {
+            valid = /[0-9]/.test(ManagerID)
+            if (!valid) {
+                console.log(".  Please enter a number")
+                return false;
+            }
+            return true;
+        }
     },
     {
         type: "input",
         message: "What is manager's email address ? ",
-        name: "ManagerEmail"
+        name: "ManagerEmail",
+        validate: function (ManagerEmail) {
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(ManagerEmail)
+            if (!valid) {
+                console.log(".  Please enter a valid email")
+                return false;
+            }
+            return true;
+        }
     },
     {
         type: "input",
         message: "What is managers office number ? ",
         name: "ManagersOfficeNumber"
     }];
-    
-const menuquestion =[
+
+const menuquestion = [
     {
         type: "list",
         message: "What would you like to do next ? ",
         choices: ["Add Engineer", "Add Intern", "Finish Building Team"],
         name: "Action1"
     }
-
 ];
 
-const Engineerquestions =[{
+const Engineerquestions = [{
     type: "input",
     message: "What is your GitHub Username? ",
     name: "GitUserName"
-}]
+}];
 
 const Internquestions = [{
     type: "input",
@@ -58,69 +73,75 @@ const NewEmployeequestions = [
     },
     {
         type: "input",
-        message: "What is New Employee ID? ",
-        name: "EmployeeID"
+        message: "What is New Employee ID Number? ",
+        name: "EmployeeID",
+        validate: function (EmployeeID) {
+            valid = /[0-9]/.test(EmployeeID)
+            if (!valid) {
+                console.log(".  Please enter a number")
+                return false;
+            }
+            return true;
+        }
     },
     {
         type: "input",
         message: "What is New Employee email address ? ",
-        name: "EmployeeEmail"
-    },
+        name: "EmployeeEmail",
+        validate: function (EmployeeEmail) {
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(EmployeeEmail)
+            if (!valid) {
+                console.log(".  Please enter a valid email")
+                return false;
+            }
+            return true;
+        }
+    }
 ];
 
 
-
-// TODO: Create a function to initialize app
-
-function askmanager(){
-    let buildteam=[];
+// Manager questions - first set of questions, goes into menu questions 
+function askmanager() {
+    let buildteam = [];
     inquirer.prompt(managerquestions)
-    .then((response)=>{
-        buildteam.push(new Manager(response.ManagerName,response.ManagerID,response.ManagerEmail,response.ManagersOfficeNumber));
-        console.log(buildteam)
-        askmenu(buildteam);
-    })
-    
-    return(buildteam)
+        .then((response) => {
+            buildteam.push(new Manager(response.ManagerName, response.ManagerID, response.ManagerEmail, response.ManagersOfficeNumber));
+            askmenu(buildteam);
+        })
+    return (buildteam)
 }
 
-function askmenu(team){
+// Questions for add team or finish building team
+function askmenu(team) {
     inquirer.prompt(menuquestion)
-        .then((response) =>{
+        .then((response) => {
             switch (response.Action1) {
                 case 'Finish Building Team':
-                    console.log("Finish Building Team")
                     makehtml(team);
-                    // fileIO.write("./output/employee.txt",output)
                     break;
                 case 'Add Engineer':
-                    quest=NewEmployeequestions.concat(Engineerquestions)
+                    quest = NewEmployeequestions.concat(Engineerquestions)
                     inquirer.prompt(quest).
-                    then((rep) => {
-                        team.push( new Engineer(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.GitUserName))
-                        askmenu(team);
-                    })
+                        then((rep) => {
+                            team.push(new Engineer(rep.EmployeeName, rep.EmployeeID, rep.EmployeeEmail, rep.GitUserName))
+                            askmenu(team);
+                        })
                     break;
                 case 'Add Intern':
-                    quest= NewEmployeequestions.concat(Internquestions)
+                    quest = NewEmployeequestions.concat(Internquestions)
                     inquirer.prompt(quest).
-                    then((rep) => {
-                        team.push( new Intern(rep.EmployeeName,rep.EmployeeID,rep.EmployeeEmail,rep.School))
-                        askmenu(team);
-                    })
+                        then((rep) => {
+                            team.push(new Intern(rep.EmployeeName, rep.EmployeeID, rep.EmployeeEmail, rep.School))
+                            askmenu(team);
+                        })
                     break;
                 default:
                     break;
             }
-        
         })
-        
-        // team[0].getRole(),team[1].getRole(),team[2].getRole(),team[2].getSchool())
-        return(team)
-        }
+    return (team)
+}
 
-    
-    
-    module.exports = askmenu;
-    module.exports = askmanager;
-    
+
+module.exports = askmenu;
+module.exports = askmanager;
